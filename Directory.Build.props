@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <DefaultTargetFramework>net9.0</DefaultTargetFramework>
+    <AllTargetFrameworks>net8.0;net9.0</AllTargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+</Project>

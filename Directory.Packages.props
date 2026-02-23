@@ -1,0 +1,41 @@
+<Project>
+
+  <ItemGroup>
+    <!-- Aspire -->
+    <PackageVersion Include="Aspire.Hosting" Version="13.1.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.1" />
+    <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.1.1" />
+    <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.1.1" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.1.1" />
+
+    <!-- ClickHouse -->
+    <PackageVersion Include="ClickHouse.Driver" Version="1.0.0" />
+
+    <!-- Microsoft.Extensions — bumped to 10.x to match ClickHouse.Driver 1.0.0 transitive deps -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.1.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.3.0" />
+
+    <!-- OpenTelemetry -->
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.2" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+
+    <!-- Testing -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageVersion Include="Microsoft.DotNet.XUnitExtensions" Version="9.0.0-beta.25164.2" />
+    <PackageVersion Include="Xunit.Extensions.Logging" Version="1.1.0" />
+    <PackageVersion Include="Testcontainers.ClickHouse" Version="4.3.0" />
+    <PackageVersion Include="Polly.Core" Version="8.6.4" />
+    <PackageVersion Include="JsonSchema.Net" Version="7.4.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.InMemory" Version="1.11.2" />
+  </ItemGroup>
+
+</Project>

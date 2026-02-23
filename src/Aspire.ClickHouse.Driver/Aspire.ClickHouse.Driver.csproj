@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <PackageProjectUrl>https://github.com/ClickHouse/ClickHouse.Aspire</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ClickHouse/ClickHouse.Aspire</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>aspire;integration;clickhouse;database;data;client</PackageTags>
+    <Authors>ClickHouse</Authors>
+    <Description>ClickHouse client integration for .NET Aspire. Registers ClickHouseDataSource with health checks, OpenTelemetry tracing, and configuration binding.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClickHouse.Driver" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Link="icon.png" Pack="true" PackagePath="" />
+    <None Include="README.nuget.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

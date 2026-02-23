@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <PackageProjectUrl>https://github.com/ClickHouse/ClickHouse.Aspire</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ClickHouse/ClickHouse.Aspire</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>aspire;integration;hosting;clickhouse;database;data</PackageTags>
+    <Authors>ClickHouse</Authors>
+    <Description>ClickHouse hosting support for .NET Aspire. Adds ClickHouse container resources, databases, volumes, and health checks to the Aspire app model.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Aspire.Hosting.ClickHouse.Tests" />
+    <InternalsVisibleTo Include="Aspire.ClickHouse.Driver.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Link="icon.png" Pack="true" PackagePath="" />
+    <None Include="README.nuget.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>
