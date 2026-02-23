@@ -1,0 +1,31 @@
+## .NET
+bin/
+obj/
+artifacts/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## JetBrains Rider
+.idea/
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+bld/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## Test results
+TestResults/
+*.trx
+.claude/
