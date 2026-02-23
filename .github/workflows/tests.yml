@@ -1,0 +1,83 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**/*.md"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: actions/cache@v5
+        name: Cache NuGet
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test Hosting
+        run: dotnet test tests/Aspire.Hosting.ClickHouse.Tests/Aspire.Hosting.ClickHouse.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName!~Functional" --logger GitHubActions
+
+      - name: Test Driver
+        run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName!~Conformance&FullyQualifiedName!~Docker&FullyQualifiedName!~HealthCheckReportsHealthy" --logger GitHubActions
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: actions/cache@v5
+        name: Cache NuGet
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test Hosting (Functional)
+        run: dotnet test tests/Aspire.Hosting.ClickHouse.Tests/Aspire.Hosting.ClickHouse.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~Functional" --logger GitHubActions
+        env:
+          TestFeature__Docker: true
+
+      - name: Test Driver (Conformance)
+        run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~Conformance|FullyQualifiedName~Docker|FullyQualifiedName~HealthCheckReportsHealthy" --logger GitHubActions
+        env:
+          TestFeature__Docker: true
