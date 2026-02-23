@@ -36,6 +36,7 @@
     <PackageVersion Include="Polly.Core" Version="8.6.4" />
     <PackageVersion Include="JsonSchema.Net" Version="7.4.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.InMemory" Version="1.11.2" />
+    <PackageVersion Include="GitHubActionsTestLogger" Version="3.0.1" />
   </ItemGroup>
 
 </Project>

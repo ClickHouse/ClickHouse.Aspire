@@ -19,6 +19,7 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="Testcontainers.ClickHouse" />
+    <PackageReference Include="GitHubActionsTestLogger" />
   </ItemGroup>
 
   <ItemGroup>
