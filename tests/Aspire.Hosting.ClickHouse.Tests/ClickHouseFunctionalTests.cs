@@ -180,6 +180,7 @@ public class ClickHouseFunctionalTests
             await using (var app = await builder1.BuildAsync())
             {
                 await app.StartAsync();
+                await app.ResourceNotifications.WaitForResourceHealthyAsync(clickhouse1.Resource.Name, cts.Token);
                 try
                 {
                     // Use the server connection string (without database) to create the database first
@@ -237,6 +238,7 @@ public class ClickHouseFunctionalTests
             await using (var app = await builder2.BuildAsync())
             {
                 await app.StartAsync();
+                await app.ResourceNotifications.WaitForResourceHealthyAsync(clickhouse2.Resource.Name, cts.Token);
                 try
                 {
                     var hb = Host.CreateApplicationBuilder();
