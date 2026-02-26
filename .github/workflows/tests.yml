@@ -42,7 +42,7 @@ jobs:
         run: dotnet test tests/Aspire.Hosting.ClickHouse.Tests/Aspire.Hosting.ClickHouse.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName!~Functional" --logger GitHubActions
 
       - name: Test Driver
-        run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName!~Conformance&FullyQualifiedName!~Docker&FullyQualifiedName!~HealthCheckReportsHealthy" --logger GitHubActions
+        run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName!~Conformance&FullyQualifiedName!~Docker&FullyQualifiedName!~HealthCheckReportsHealthy&FullyQualifiedName!~CloudIntegration" --logger GitHubActions
 
   integration-tests:
     name: Integration Tests
@@ -81,3 +81,8 @@ jobs:
         run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~Conformance|FullyQualifiedName~Docker|FullyQualifiedName~HealthCheckReportsHealthy" --logger GitHubActions
         env:
           TestFeature__Docker: true
+
+      - name: Test Driver (Cloud)
+        run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~CloudIntegration" --logger GitHubActions
+        env:
+          CLOUD_CONNSTRING: "Host=${{ secrets.CLICKHOUSE_CLOUD_HOST }};Port=8443;Username=${{ secrets.CLICKHOUSE_CLOUD_USER }};Password=${{ secrets.CLICKHOUSE_CLOUD_PASSWORD }};Database=default"
