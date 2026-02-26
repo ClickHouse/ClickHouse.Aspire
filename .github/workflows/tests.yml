@@ -85,4 +85,4 @@ jobs:
       - name: Test Driver (Cloud)
         run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~CloudIntegration" --logger GitHubActions
         env:
-          CLOUD_CONNSTRING: "Host=${{ secrets.CLICKHOUSE_CLOUD_HOST }};Port=8443;Username=${{ secrets.CLICKHOUSE_CLOUD_USER }};Password=${{ secrets.CLICKHOUSE_CLOUD_PASSWORD }};Database=default"
+          CLOUD_CONNSTRING: "Host=${{ secrets.CLICKHOUSE_CLOUD_HOST }};Port=8443;Protocol=https;Username=${{ secrets.CLICKHOUSE_CLOUD_USER }};Password=${{ secrets.CLICKHOUSE_CLOUD_PASSWORD }};Database=default"
