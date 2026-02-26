@@ -7,7 +7,6 @@
     <RepositoryUrl>https://github.com/ClickHouse/ClickHouse.Aspire</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>aspire;integration;hosting;clickhouse;database;data</PackageTags>
-    <Authors>Aspire.Hosting.ClickHouse</Authors>
     <Description>ClickHouse hosting support for .NET Aspire. Adds ClickHouse container resources, databases, volumes, and health checks to the Aspire app model.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
