@@ -7,7 +7,6 @@
     <RepositoryUrl>https://github.com/ClickHouse/ClickHouse.Aspire</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>aspire;integration;clickhouse;database;data;client</PackageTags>
-    <Authors>Aspire.ClickHouse.Driver</Authors>
     <Description>ClickHouse client integration for .NET Aspire. Registers ClickHouseDataSource with health checks, OpenTelemetry tracing, and configuration binding.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
