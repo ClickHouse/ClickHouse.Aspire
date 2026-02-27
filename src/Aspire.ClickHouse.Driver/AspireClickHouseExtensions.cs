@@ -3,8 +3,10 @@
 
 using Aspire;
 using Aspire.ClickHouse.Driver;
+using ClickHouse.Driver;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using ClickHouseDataSource = ClickHouse.Driver.ADO.ClickHouseDataSource;
 using ClickHouseConnectionStringBuilder = ClickHouse.Driver.ADO.ClickHouseConnectionStringBuilder;
@@ -110,6 +112,18 @@ public static class AspireClickHouseExtensions
                 };
             },
             serviceKey: serviceKey);
+
+        // 2b. Register IClickHouseClient as a forwarding service from ClickHouseDataSource
+        if (serviceKey is null)
+        {
+            builder.Services.TryAddSingleton<IClickHouseClient>(sp =>
+                sp.GetRequiredService<ClickHouseDataSource>().GetClient());
+        }
+        else
+        {
+            builder.Services.TryAddKeyedSingleton<IClickHouseClient>(serviceKey, (sp, key) =>
+                sp.GetRequiredKeyedService<ClickHouseDataSource>(key).GetClient());
+        }
 
         // 3. Health check registration
         if (!settings.DisableHealthChecks)

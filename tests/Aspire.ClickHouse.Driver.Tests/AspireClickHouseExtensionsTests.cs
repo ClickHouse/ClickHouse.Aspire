@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Aspire.TestUtilities;
+using ClickHouse.Driver;
 using ClickHouse.Driver.ADO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -192,6 +193,50 @@ public class AspireClickHouseExtensionsTests : IClassFixture<ClickHouseContainer
         Assert.Contains("localhost1", ds1.ConnectionString);
         Assert.Contains("localhost2", ds2.ConnectionString);
         Assert.Contains("localhost3", ds3.ConnectionString);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void IClickHouseClientIsResolvable(bool useKeyed)
+    {
+        var builder = Host.CreateEmptyApplicationBuilder(null);
+        builder.Configuration.AddInMemoryCollection([
+            new KeyValuePair<string, string?>("ConnectionStrings:clickhouse", TestConnectionString)
+        ]);
+
+        if (useKeyed)
+        {
+            builder.AddKeyedClickHouseDataSource("clickhouse");
+        }
+        else
+        {
+            builder.AddClickHouseDataSource("clickhouse");
+        }
+
+        using var host = builder.Build();
+        var client = useKeyed
+            ? host.Services.GetRequiredKeyedService<IClickHouseClient>("clickhouse")
+            : host.Services.GetRequiredService<IClickHouseClient>();
+
+        Assert.NotNull(client);
+    }
+
+    [Fact]
+    public void IClickHouseClientIsSameInstanceAsDataSourceClient()
+    {
+        var builder = Host.CreateEmptyApplicationBuilder(null);
+        builder.Configuration.AddInMemoryCollection([
+            new KeyValuePair<string, string?>("ConnectionStrings:clickhouse", TestConnectionString)
+        ]);
+
+        builder.AddClickHouseDataSource("clickhouse");
+
+        using var host = builder.Build();
+        var dataSource = host.Services.GetRequiredService<ClickHouseDataSource>();
+        var client = host.Services.GetRequiredService<IClickHouseClient>();
+
+        Assert.Same(dataSource.GetClient(), client);
     }
 
     [Fact]
