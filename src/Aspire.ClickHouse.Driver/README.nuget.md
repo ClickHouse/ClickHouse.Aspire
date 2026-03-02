@@ -12,7 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddClickHouseDataSource("clickhousedb");
 ```
 
-Then inject via DI:
+Then inject and use it. The `IClickHouseClient` API is the most compact:
+
+```csharp
+app.MapGet("/data", async (IClickHouseClient client) =>
+{
+    var result = await client.ExecuteScalarAsync("SELECT count() FROM my_table");
+    return Results.Ok(result);
+});
+```
+
+The ADO.NET `ClickHouseDataSource` is also available:
 
 ```csharp
 app.MapGet("/data", async (ClickHouseDataSource dataSource) =>
