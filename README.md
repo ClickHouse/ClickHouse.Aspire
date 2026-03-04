@@ -31,6 +31,12 @@ Aspire integration for [ClickHouse](https://clickhouse.com/) using [ClickHouse.D
 - **Secure credential management** with auto-generated passwords and Aspire parameter support
 - **Data persistence** via named volumes or bind mounts
 
+## Documentation
+
+- [Aspire documentation](https://aspire.dev/)
+- [ClickHouse integration documentation](https://aspire.dev/integrations/databases/clickhouse/clickhouse-get-started/?lang=csharp)
+
+
 ## Packages
 
 | Package | Description |
