@@ -1,4 +1,23 @@
-# ClickHouse.Aspire
+<p align="center">
+<img src="icon.png" width="200px" align="center">
+<h1 align="center">ClickHouse.Aspire</h1>
+</p>
+<br/>
+<p align="center">
+
+<a href="https://www.nuget.org/packages/Aspire.Hosting.ClickHouse">
+<img alt="NuGet Version" src="https://img.shields.io/nuget/v/Aspire.Hosting.ClickHouse?label=Aspire.Hosting.ClickHouse">
+</a>
+
+<a href="https://www.nuget.org/packages/Aspire.ClickHouse.Driver">
+<img alt="NuGet Version" src="https://img.shields.io/nuget/v/Aspire.ClickHouse.Driver?label=Aspire.ClickHouse.Driver">
+</a>
+
+<a href="https://github.com/ClickHouse/ClickHouse.Aspire/actions/workflows/tests.yml">
+<img src="https://github.com/ClickHouse/ClickHouse.Aspire/actions/workflows/tests.yml/badge.svg?branch=main">
+</a>
+
+</p>
 
 Aspire integration for [ClickHouse](https://clickhouse.com/) using [ClickHouse.Driver](https://github.com/clickhouse/clickhouse-cs). Provides container orchestration, health checks, OpenTelemetry tracing, and dependency injection for ClickHouse in Aspire applications.
 
@@ -76,7 +95,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddClickHouseDataSource("clickhousedb");
 ```
 
-Then inject it via DI:
+Then inject and use it. The `ClickHouseClient` API is the most compact:
+
+```csharp
+app.MapGet("/data", async (IClickHouseClient client) =>
+{
+    var result = await client.ExecuteScalarAsync("SELECT count() FROM my_table");
+    return Results.Ok(result);
+});
+```
+
+The ADO.NET `ClickHouseDataSource` is also available:
 
 ```csharp
 app.MapGet("/data", async (ClickHouseDataSource dataSource) =>

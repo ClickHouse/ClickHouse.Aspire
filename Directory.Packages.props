@@ -2,11 +2,11 @@
 
   <ItemGroup>
     <!-- Aspire -->
-    <PackageVersion Include="Aspire.Hosting" Version="13.1.1" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.1" />
-    <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.1.1" />
-    <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.1.1" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.1.1" />
+    <PackageVersion Include="Aspire.Hosting" Version="13.1.2" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.1.2" />
+    <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.1.2" />
+    <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.1.2" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.1.2" />
 
     <!-- ClickHouse -->
     <PackageVersion Include="ClickHouse.Driver" Version="1.0.0" />
