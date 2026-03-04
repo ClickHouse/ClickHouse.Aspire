@@ -1,10 +1,10 @@
 # ClickHouse.Aspire
 
-.NET Aspire integration for [ClickHouse](https://clickhouse.com/) using [ClickHouse.Driver](https://github.com/clickhouse/clickhouse-cs). Provides container orchestration, health checks, OpenTelemetry tracing, and dependency injection for ClickHouse in Aspire applications.
+Aspire integration for [ClickHouse](https://clickhouse.com/) using [ClickHouse.Driver](https://github.com/clickhouse/clickhouse-cs). Provides container orchestration, health checks, OpenTelemetry tracing, and dependency injection for ClickHouse in Aspire applications.
 
 ## Features
 
-- **Container lifecycle management** via .NET Aspire orchestration
+- **Container lifecycle management** via Aspire orchestration
 - **Automatic database creation** on container startup using `AddDatabase()`
 - **Health checks** — HTTP ping on the hosting side, `PingAsync()` on the client side
 - **OpenTelemetry tracing** via the `ClickHouse.Driver` activity source
