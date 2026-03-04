@@ -1,6 +1,6 @@
 # Aspire.Hosting.ClickHouse
 
-ClickHouse hosting integration for [Aspire](https://learn.microsoft.com/dotnet/aspire/). Adds ClickHouse container resources, databases, data volumes, and health checks to the Aspire app model.
+ClickHouse hosting integration for [Aspire](https://aspire.dev/). Adds ClickHouse container resources, databases, data volumes, and health checks to the Aspire app model.
 
 ## Usage
 
@@ -47,4 +47,4 @@ Use [Aspire.ClickHouse.Driver](https://www.nuget.org/packages/Aspire.ClickHouse.
 
 - [GitHub repository](https://github.com/ClickHouse/ClickHouse.Aspire)
 - [ClickHouse documentation](https://clickhouse.com/docs)
-- [Aspire documentation](https://learn.microsoft.com/dotnet/aspire/)
+- [Aspire documentation](https://aspire.dev/)

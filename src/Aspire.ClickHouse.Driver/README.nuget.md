@@ -1,6 +1,6 @@
 # Aspire.ClickHouse.Driver
 
-ClickHouse client integration for [Aspire](https://learn.microsoft.com/dotnet/aspire/) using [ClickHouse.Driver](https://www.nuget.org/packages/ClickHouse.Driver). Registers `ClickHouseDataSource` with health checks, OpenTelemetry tracing, and configuration binding.
+ClickHouse client integration for [Aspire](https://aspire.dev/) using [ClickHouse.Driver](https://www.nuget.org/packages/ClickHouse.Driver). Registers `ClickHouseDataSource` with health checks, OpenTelemetry tracing, and configuration binding.
 
 ## Usage
 
@@ -80,4 +80,5 @@ Use [Aspire.Hosting.ClickHouse](https://www.nuget.org/packages/Aspire.Hosting.Cl
 
 - [GitHub repository](https://github.com/ClickHouse/ClickHouse.Aspire)
 - [ClickHouse documentation](https://clickhouse.com/docs)
-- [Aspire documentation](https://learn.microsoft.com/dotnet/aspire/)
+- [Aspire documentation](https://aspire.dev/)
+- [ClickHouse integration documentation](https://aspire.dev/integrations/databases/clickhouse/clickhouse-get-started/?lang=csharp)
