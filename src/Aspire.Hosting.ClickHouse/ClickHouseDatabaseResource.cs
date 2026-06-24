@@ -14,6 +14,7 @@ namespace Aspire.Hosting.ApplicationModel;
 /// <param name="databaseName">The database name.</param>
 /// <param name="parent">The ClickHouse server resource associated with this database.</param>
 [DebuggerDisplay("Type = {GetType().Name,nq}, Name = {Name}, Database = {DatabaseName}")]
+[AspireExport(ExposeProperties = true)]
 public class ClickHouseDatabaseResource(string name, string databaseName, ClickHouseServerResource parent)
     : Resource(name), IResourceWithParent<ClickHouseServerResource>, IResourceWithConnectionString
 {

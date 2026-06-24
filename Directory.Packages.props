@@ -1,11 +1,11 @@
 <Project>
   <ItemGroup>
     <!-- Aspire -->
-    <PackageVersion Include="Aspire.Hosting" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.4.6" />
     <!-- ClickHouse -->
     <PackageVersion Include="ClickHouse.Driver" Version="1.2.0" />
     <!-- Microsoft.Extensions — bumped to 10.x to match ClickHouse.Driver 1.0.0 transitive deps -->
@@ -28,7 +28,7 @@
     <PackageVersion Include="Microsoft.DotNet.XUnitExtensions" Version="9.0.0-beta.25164.2" />
     <PackageVersion Include="Xunit.Extensions.Logging" Version="1.1.0" />
     <PackageVersion Include="Testcontainers.ClickHouse" Version="4.3.0" />
-    <PackageVersion Include="Polly.Core" Version="8.6.5" />
+    <PackageVersion Include="Polly.Core" Version="8.7.0" />
     <PackageVersion Include="JsonSchema.Net" Version="7.4.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.InMemory" Version="1.15.3" />
     <PackageVersion Include="GitHubActionsTestLogger" Version="3.0.1" />

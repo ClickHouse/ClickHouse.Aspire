@@ -30,6 +30,8 @@ public static class ClickHouseBuilderExtensions
     /// <param name="name">The name of the resource. This name will be used as the connection string name when referenced in a dependency.</param>
     /// <param name="port">The host port for ClickHouse.</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <remarks>This overload is not available in polyglot app hosts. Use <see cref="AddClickHouseForPolyglot"/> instead.</remarks>
+    [AspireExportIgnore(Reason = "Use the dedicated polyglot overload instead.")]
     public static IResourceBuilder<ClickHouseServerResource> AddClickHouse(this IDistributedApplicationBuilder builder, [ResourceName] string name, int? port)
     {
         return AddClickHouse(builder, name, port, null, null);
@@ -44,6 +46,8 @@ public static class ClickHouseBuilderExtensions
     /// <param name="userName">A parameter that contains the ClickHouse server user name, or <see langword="null"/> to use a default value.</param>
     /// <param name="password">A parameter that contains the ClickHouse server password, or <see langword="null"/> for no password.</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <remarks>This overload is not available in polyglot app hosts. Use <see cref="AddClickHouseForPolyglot"/> instead.</remarks>
+    [AspireExportIgnore(Reason = "Use the dedicated polyglot overload instead.")]
     public static IResourceBuilder<ClickHouseServerResource> AddClickHouse(this IDistributedApplicationBuilder builder,
         [ResourceName] string name,
         int? port = null,
@@ -118,12 +122,26 @@ public static class ClickHouseBuilderExtensions
     }
 
     /// <summary>
+    /// Adds a ClickHouse resource to the application model.
+    /// </summary>
+    [AspireExport("addClickHouse")]
+    internal static IResourceBuilder<ClickHouseServerResource> AddClickHouseForPolyglot(
+        this IDistributedApplicationBuilder builder,
+        [ResourceName] string name,
+        int? port = null,
+        IResourceBuilder<ParameterResource>? userName = null,
+        IResourceBuilder<ParameterResource>? password = null)
+        => AddClickHouse(builder, name, port, userName, password);
+
+    /// <summary>
     /// Adds a ClickHouse database to the application model.
     /// </summary>
     /// <param name="builder">The ClickHouse server resource builder.</param>
     /// <param name="name">The name of the resource. This name will be used as the connection string name when referenced in a dependency.</param>
     /// <param name="databaseName">The name of the database. If not provided, this defaults to the same value as <paramref name="name"/>.</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <ats-returns>The ClickHouse database resource.</ats-returns>
+    [AspireExport]
     public static IResourceBuilder<ClickHouseDatabaseResource> AddDatabase(this IResourceBuilder<ClickHouseServerResource> builder, [ResourceName] string name, string? databaseName = null)
     {
         ArgumentNullException.ThrowIfNull(builder);
@@ -146,6 +164,8 @@ public static class ClickHouseBuilderExtensions
     /// <param name="name">The name of the volume. Defaults to an auto-generated name based on the application and resource names.</param>
     /// <param name="isReadOnly">A flag that indicates if this is a read-only volume.</param>
     /// <returns>The <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <ats-returns>The resource builder.</ats-returns>
+    [AspireExport]
     public static IResourceBuilder<ClickHouseServerResource> WithDataVolume(this IResourceBuilder<ClickHouseServerResource> builder, string? name = null, bool isReadOnly = false)
     {
         ArgumentNullException.ThrowIfNull(builder);
@@ -160,6 +180,8 @@ public static class ClickHouseBuilderExtensions
     /// <param name="source">The source directory on the host to mount into the container.</param>
     /// <param name="isReadOnly">A flag that indicates if this is a read-only mount.</param>
     /// <returns>The <see cref="IResourceBuilder{T}"/>.</returns>
+    /// <ats-returns>The resource builder.</ats-returns>
+    [AspireExport]
     public static IResourceBuilder<ClickHouseServerResource> WithDataBindMount(this IResourceBuilder<ClickHouseServerResource> builder, string source, bool isReadOnly = false)
     {
         ArgumentNullException.ThrowIfNull(builder);
