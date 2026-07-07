@@ -21,6 +21,10 @@ public static class AspireClickHouseExtensions
     private const string DefaultConfigSectionName = "Aspire:ClickHouse:Driver";
     private const string ActivitySourceName = "ClickHouse.Driver";
 
+    // Value of the "lib" User-Agent tag identifying this integration for
+    // per-application query attribution (ClickHouse.Driver 1.3.0+).
+    private const string LibraryName = "Aspire.ClickHouse.Driver";
+
     /// <summary>
     /// Registers <see cref="ClickHouseDataSource"/> service for connecting to a ClickHouse database with ClickHouse.Driver.
     /// Configures health check, logging and telemetry for the ClickHouse client.
@@ -106,9 +110,23 @@ public static class AspireClickHouseExtensions
                 configureConnectionString?.Invoke(connectionStringBuilder);
 
                 var driverSettings = connectionStringBuilder.ToSettings();
+
+                // Tag the User-Agent with this integration's identity, preserving any
+                // ApplicationInfo tags already present on the settings.
+                var applicationInfo = new Dictionary<string, string>();
+                if (driverSettings.ApplicationInfo is not null)
+                {
+                    foreach (var tag in driverSettings.ApplicationInfo)
+                    {
+                        applicationInfo[tag.Key] = tag.Value;
+                    }
+                }
+                applicationInfo["lib"] = LibraryName;
+
                 return new ClickHouse.Driver.ADO.ClickHouseClientSettings(driverSettings)
                 {
-                    LoggerFactory = sp.GetService<Logging.ILoggerFactory>()
+                    LoggerFactory = sp.GetService<Logging.ILoggerFactory>(),
+                    ApplicationInfo = applicationInfo
                 };
             },
             serviceKey: serviceKey);

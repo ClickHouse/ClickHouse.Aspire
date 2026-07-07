@@ -6,13 +6,17 @@
     <PackageVersion Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.3.5" />
     <PackageVersion Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.3.5" />
     <PackageVersion Include="Aspire.Hosting.Testing" Version="13.3.5" />
+    <!-- Transitive security override: Aspire.Hosting pulls MessagePack 2.5.192, which has
+         known vulnerabilities (e.g. GHSA-vh6j-jc39-fggf / CVE-2026-48506). 2.5.301 is the
+         first patched release on the 2.x line. -->
+    <PackageVersion Include="MessagePack" Version="2.5.301" />
     <!-- ClickHouse -->
-    <PackageVersion Include="ClickHouse.Driver" Version="1.2.0" />
-    <!-- Microsoft.Extensions — bumped to 10.x to match ClickHouse.Driver 1.0.0 transitive deps -->
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
+    <PackageVersion Include="ClickHouse.Driver" Version="1.3.0" />
+    <!-- Microsoft.Extensions — bumped to 10.x to match ClickHouse.Driver 1.3.0 transitive deps -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.1.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.3.0" />
     <!-- OpenTelemetry -->
