@@ -49,6 +49,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
+    # Map the cloud host secret to a job-level env so it can be referenced in a
+    # step `if:` (the `secrets` context is not available in `if:` conditions).
+    # It resolves to an empty string on forks, where secrets are withheld.
+    env:
+      CLICKHOUSE_CLOUD_HOST: ${{ secrets.CLICKHOUSE_CLOUD_HOST }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -82,7 +88,11 @@ jobs:
         env:
           TestFeature__Docker: true
 
+      # Skipped on forks and anywhere the cloud secrets are not configured;
+      # without a real host the connection string points at localhost and the
+      # tests fail with connection-refused rather than skipping.
       - name: Test Driver (Cloud)
+        if: ${{ env.CLICKHOUSE_CLOUD_HOST != '' }}
         run: dotnet test tests/Aspire.ClickHouse.Driver.Tests/Aspire.ClickHouse.Driver.Tests.csproj --no-build --configuration Release --verbosity normal --filter "FullyQualifiedName~CloudIntegration" --logger GitHubActions
         env:
           CLOUD_CONNSTRING: "Host=${{ secrets.CLICKHOUSE_CLOUD_HOST }};Port=8443;Protocol=https;Username=${{ secrets.CLICKHOUSE_CLOUD_USER }};Password=${{ secrets.CLICKHOUSE_CLOUD_PASSWORD }};Database=default"
