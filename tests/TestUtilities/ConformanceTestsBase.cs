@@ -1,8 +1,9 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Text.Json.Nodes;
+using System.Text.Json;
 using Aspire.TestUtilities;
 using Microsoft.DotNet.XUnitExtensions;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,21 @@ using OpenTelemetry.Trace;
 using Xunit;
 
 namespace Aspire.Components.ConformanceTests;
+
+/// <summary>
+/// JsonSchema.Net registers every schema it builds in a process-wide registry keyed by
+/// base URI, and refuses to overwrite an existing entry. Building the same
+/// ConfigurationSchema.json from more than one test therefore throws
+/// "Overwriting registered schemas is not permitted", so build each file exactly once.
+/// Deliberately non-generic: a static on the generic base would give one cache per
+/// closed type, which would still collide if two of them shared a schema path.
+/// </summary>
+internal static class ConfigurationSchemaCache
+{
+    private static readonly ConcurrentDictionary<string, JsonSchema> s_schemas = new();
+
+    public static JsonSchema Get(string path) => s_schemas.GetOrAdd(path, static p => JsonSchema.FromFile(p));
+}
 
 public abstract class ConformanceTests<TService, TOptions>
     where TService : class
@@ -329,10 +345,10 @@ public abstract class ConformanceTests<TService, TOptions>
     [Fact]
     public void ConfigurationSchemaValidJsonConfigTest()
     {
-        var schema = JsonSchema.FromFile(JsonSchemaPath);
-        var config = JsonNode.Parse(ValidJsonConfig);
+        var schema = ConfigurationSchemaCache.Get(JsonSchemaPath);
+        using var config = JsonDocument.Parse(ValidJsonConfig);
 
-        var results = schema.Evaluate(config);
+        var results = schema.Evaluate(config.RootElement);
 
         Assert.True(results.IsValid);
     }
@@ -340,13 +356,13 @@ public abstract class ConformanceTests<TService, TOptions>
     [Fact]
     public void ConfigurationSchemaInvalidJsonConfigTest()
     {
-        var schema = JsonSchema.FromFile(JsonSchemaPath);
+        var schema = ConfigurationSchemaCache.Get(JsonSchemaPath);
 
         foreach ((string json, string error) in InvalidJsonToErrorMessage)
         {
-            var config = JsonNode.Parse(json);
-            var results = schema.Evaluate(config, DefaultEvaluationOptions);
-            var detail = results.Details.FirstOrDefault(x => x.HasErrors);
+            using var config = JsonDocument.Parse(json);
+            var results = schema.Evaluate(config.RootElement, DefaultEvaluationOptions);
+            var detail = results.Details?.FirstOrDefault(x => x.Errors is { Count: > 0 });
 
             Assert.NotNull(detail);
             Assert.Equal(error, detail.Errors!.First().Value);
